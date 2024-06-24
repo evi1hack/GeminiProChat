@@ -8,6 +8,9 @@ import vercel from '@astrojs/vercel/edge'
 import netlify from '@astrojs/netlify/edge-functions'
 import disableBlocks from './plugins/disableBlocks'
 
+import vercel from '@astrojs/vercel/serverless';
+
+
 const envAdapter = () => {
   switch (process.env.OUTPUT) {
     case 'vercel': return vercel()
@@ -66,4 +69,8 @@ export default defineConfig({
       process.env.OUTPUT === 'netlify' && disableBlocks(),
     ],
   },
+  adapter: vercel({
+    webAnalytics: { enabled: true }
+  }),
+  
 })
